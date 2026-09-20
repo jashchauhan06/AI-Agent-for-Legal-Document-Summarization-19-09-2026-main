@@ -25,7 +25,8 @@ if DATABASE_URL.startswith("postgres://"):
 
 
 # Upload Configuration
-MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", "25"))
+_max_file_size_str = os.getenv("MAX_FILE_SIZE_MB", "25").strip()
+MAX_FILE_SIZE_MB = int(_max_file_size_str) if _max_file_size_str.isdigit() else 25
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 DEFAULT_UPLOAD_DIR = Path("/tmp/uploads") if IS_VERCEL else BASE_DIR / "uploads"
 UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", str(DEFAULT_UPLOAD_DIR)))
