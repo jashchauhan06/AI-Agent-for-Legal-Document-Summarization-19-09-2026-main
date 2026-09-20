@@ -20,6 +20,9 @@ APP_SECRET_KEY = os.getenv("APP_SECRET_KEY", "default-legal-ai-secret-key-produc
 
 DEFAULT_DB_URL = "sqlite:////tmp/legal_ai.db" if IS_VERCEL else "sqlite:///./legal_ai.db"
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DB_URL)
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 
 # Upload Configuration
 MAX_FILE_SIZE_MB = int(os.getenv("MAX_FILE_SIZE_MB", "25"))
